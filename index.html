@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Face Recognition Application</h1>
+
+        <div class="list-group">
+            <a href="/create_dataset" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">Create Dataset</h5>
+                <p class="mb-1">Capture images to create a dataset for a new person.</p>
+            </a>
+            <a href="#" onclick="document.getElementById('preprocess-form').submit();" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">Preprocess Embeddings</h5>
+                <p class="mb-1">Extract embeddings from the captured images for training.</p>
+            </a>
+            <form id="preprocess-form" method="POST" action="/preprocess_embeddings" style="display: none;"></form>
+            
+            <a href="#" onclick="document.getElementById('train-form').submit();" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">Train Model</h5>
+                <p class="mb-1">Train the SVM model using the preprocessed embeddings.</p>
+            </a>
+            <form id="train-form" method="POST" action="/train_model" style="display: none;"></form>
+
+            <a href="/recognize" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">Start Recognition</h5>
+                <p class="mb-1">Start the video stream for real-time face recognition.</p>
+            </a>
+
+            <a href="/view_attendance" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">View Attendance</h5>
+                <p class="mb-1">View the attendance records of recognized individuals.</p>
+            </a>
+        </div>
+        
+        <div class="mt-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert alert-dismissible fade show mt-2" role="alert">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
